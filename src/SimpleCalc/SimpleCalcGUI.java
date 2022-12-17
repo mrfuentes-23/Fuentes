@@ -38,7 +38,7 @@ public class SimpleCalcGUI extends JFrame{
                 } catch (NumberFormatException nf) {
                     mess.showMessageDialog(btnCompute, "Invalid Input: Inputs must be Integer");
                 } catch (ArithmeticException ae){
-                    mess.showMessageDialog(btnCompute, "Invalid Input: Input must not be zero");
+                    mess.showMessageDialog(btnCompute, "Invalid Input: Second number must not be zero");
                 } finally{
 
                 }
