@@ -14,7 +14,7 @@ public class SimpleCalcGUI extends JFrame{
 
     public SimpleCalcGUI() {
         btnCompute.addActionListener(new ActionListener() {
-            int num1,num2,result;
+            double result,num1,num2;
             String ope;
 
             @Override
@@ -22,29 +22,39 @@ public class SimpleCalcGUI extends JFrame{
                 JOptionPane mess = new JOptionPane();
                 mess.setSize(200, 200);
                 try {
-                    num1 = Integer.parseInt(tfNumber1.getText());
-                    num2 = Integer.parseInt(tfNumber2.getText());
+                    num1 = Double.parseDouble(tfNumber1.getText());
+                    num2 = Double.parseDouble(tfNumber2.getText());
                     ope = cbOperations.getSelectedItem().toString();
 
                     if (ope == "+") {
                         result = num1 + num2;
-                    }else if(ope == "-"){
+                    } else if (ope == "-") {
                         result = num1 - num2;
-                    }else if(ope == "*"){
+                    } else if (ope == "*") {
                         result = num1 * num2;
-                    }else if(ope == "/"){
+                    } else if (ope == "/") {
+                        if(num2==0){
+                            throw new ArithmeticException();
+                        }
                         result = num1 / num2;
+                    }
+
+                    if(result%1==0){
+                        lblResult.setText(String.valueOf(String.format("%.0f",result)));
+                    }else{
+                        lblResult.setText(String.valueOf(String.format("%.2f",result)));
                     }
                 } catch (NumberFormatException nf) {
                     mess.showMessageDialog(btnCompute, "Invalid Input: Inputs must be Integer");
-                } catch (ArithmeticException ae){
+                } catch (ArithmeticException ae) {
                     mess.showMessageDialog(btnCompute, "Invalid Input: Second number must not be zero");
-                } finally{
+                } catch (Exception ex) {
+                    mess.showMessageDialog(btnCompute, "Invalid Input.");
+                } finally {
 
                 }
-                lblResult.setText(String.valueOf(result));
-            }
 
+            }
         });
     }
 

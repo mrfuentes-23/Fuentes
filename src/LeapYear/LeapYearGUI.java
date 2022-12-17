@@ -11,29 +11,32 @@ public class LeapYearGUI extends JFrame{
 
     public LeapYearGUI() {
         btnCheckYear.addActionListener(new ActionListener() {
-            int year=0,flag=0;
+            int year=0;
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane show = new JOptionPane();
                 show.setSize(200,200);
                 try {
-                    flag=0;
                     year = Integer.parseInt(tfYear.getText());
+                    if(year<0){
+                        throw new Exception();
+                    }
+                    int leap = leapYear(year);
+
+                    if(leap == 1) {
+                        show.showMessageDialog(btnCheckYear, "Leap year");
+                    }else {
+                        show.showMessageDialog(btnCheckYear, "Not a leap year");
+                    }
                 }catch (NumberFormatException nf){
-                    flag=1;
-                    show.showMessageDialog(btnCheckYear, "Invalid Input");
-                }finally {
+                    show.showMessageDialog(btnCheckYear, "Invalid Input: Input must be an integer.");
+                }catch (Exception ex){
+                    show.showMessageDialog(btnCheckYear, "Invalid Input.");
+                } finally{
 
                 }
-                int leap = leapYear(year);
-                if(flag == 0){
-                if(leap == 1) {
-                    show.showMessageDialog(btnCheckYear, "Leap year");
-                }else {
-                    show.showMessageDialog(btnCheckYear, "Not a leap year");
-                }
-                show.setVisible(true);
-            }}
+
+            }
         });
     }
 
